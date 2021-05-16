@@ -84,7 +84,8 @@
                 <div class="block-heading" style="padding-top: 70px;">
                     <h2 class="text-info"
                         style="font-family: Amaranth, sans-serif;text-align: center; font-size: 46px;">#Topic</h2>
-                    <p>Want to know about a topic you are curious about? Here are the top results based on <a href="faq.html">tweet volume</a></p>
+                    <p>Want to know about a topic you are curious about? Here are the top results based on <a
+                            href="faq.html">tweet volume</a></p>
                 </div>
 
                 <div class="block-content" style="text-align: center; ">
@@ -265,27 +266,34 @@
                                         this.categoryList = result1
                                         console.log(result1);
                                         this.seriesData = []
+                                        let rep = [];
                                         tweetList.forEach(name => {
                                             let num = [];
-                                            let resultlist = {
-                                                'name': name.Twitter_ID,
-                                                'type': 'bar',
-                                                'stack': 'one',
-                                                'data': ''
-                                            };
-                                            this.categoryList.forEach(cItem => {
-                                                for (const cItemKey in cItem) {
-                                                    if (cItemKey == resultlist
-                                                        .name) {
-                                                        num.push(cItem[cItemKey]);
+                                            if (rep.includes(name.Twitter_ID)) {
+                                                console.log("repeat");
+                                            } else {
+                                                rep.push(name.Twitter_ID)
+                                                let resultlist = {
+                                                    'name': name.Twitter_ID,
+                                                    'type': 'bar',
+                                                    'stack': 'one',
+                                                    'data': ''
+                                                };
+                                                this.categoryList.forEach(cItem => {
+                                                    for (const cItemKey in cItem) {
+                                                        if (cItemKey == resultlist
+                                                            .name) {
+                                                            num.push(cItem[
+                                                                cItemKey]);
+                                                        }
                                                     }
-                                                }
-                                            })
-                                            resultlist.data = num;
-                                            this.seriesData.push(resultlist);
+                                                })
+                                                resultlist.data = num;
+                                                this.seriesData.push(resultlist);
+                                            }
                                         });
                                         console.log(this.seriesData)
-
+                                        
                                         console.log(this.categoryList, 'this.categoryList')
                                         this.initChart()
                                     }
